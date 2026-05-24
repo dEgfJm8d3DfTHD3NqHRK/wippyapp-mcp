@@ -1,0 +1,57 @@
+{
+  "name": "@wippyapp/mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Wippy — query your CPA practice data (clients, returns, deadlines, dashboard) via Claude",
+  "type": "module",
+  "bin": {
+    "wippyapp-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "author": "Wippy",
+  "homepage": "https://wippy.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dEgfJm8d3DfTHD3NqHRK/wippyapp-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dEgfJm8d3DfTHD3NqHRK/wippyapp-mcp/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "wippy",
+    "cpa",
+    "tax",
+    "accounting"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0",
+    "vitest": "^2.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
