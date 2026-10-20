@@ -69,7 +69,7 @@ export const TOOL_DEFINITIONS: readonly ToolDef[] = [
   {
     name: 'get_upcoming_deadlines',
     description:
-      'List tax filing deadlines coming up in the next N days (1-180, default 30). Returns up to 30 deadlines sorted by earliest first. Excludes already-efiled / finalized returns. Useful for queries like "what\'s due this week?"',
+      'List tax return deadlines due in the next N days (1-180, default 30), using each return\'s real deadline: the extension date when the return is extended, moved to the next business day when it falls on a weekend or federal holiday. Leaves out filed, dropped and deleted-client returns; keeps Ready to Efile returns (prepared but not filed). Set include_past_due to also list every return past its deadline and not filed (any tax year), each flagged pastDue with daysPast. `count` is the total that matched; at most 30 rows come back (`returned`, `truncated`). Useful for queries like "what\'s due this week?" or "what\'s overdue?"',
     inputSchema: {
       days: z
         .number()
@@ -78,6 +78,12 @@ export const TOOL_DEFINITIONS: readonly ToolDef[] = [
         .max(180)
         .default(30)
         .describe('Look-ahead window in days (1-180, default 30).'),
+      include_past_due: z
+        .boolean()
+        .default(false)
+        .describe(
+          'Also include returns already past their deadline and not yet filed (any tax year). Default false = upcoming only.',
+        ),
     },
     backendRoute: 'upcoming-deadlines',
   },

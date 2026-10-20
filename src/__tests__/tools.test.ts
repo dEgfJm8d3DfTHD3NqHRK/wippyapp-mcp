@@ -116,3 +116,23 @@ describe('registerTools — end-to-end dispatch (server → client → fetch)', 
     ]);
   });
 });
+
+describe('get_upcoming_deadlines — include_past_due (WIP-3104)', () => {
+  // The MCP SDK validates tool args against this raw shape and strips any key it
+  // doesn't declare, so the backend's `include_past_due` is reachable ONLY if
+  // the package declares it here.
+  const def = TOOL_DEFINITIONS.find((t) => t.name === 'get_upcoming_deadlines')!;
+
+  it('declares include_past_due as a boolean defaulting to false', () => {
+    const schema = def.inputSchema.include_past_due;
+    expect(schema).toBeDefined();
+    expect(schema.parse(undefined)).toBe(false);
+    expect(schema.parse(true)).toBe(true);
+    expect(schema.safeParse('yes').success).toBe(false);
+  });
+
+  it('the description says count is the total and names the past-due option', () => {
+    expect(def.description).toMatch(/include_past_due/);
+    expect(def.description).toMatch(/count/);
+  });
+});
