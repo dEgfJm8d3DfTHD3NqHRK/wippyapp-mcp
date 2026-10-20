@@ -10,7 +10,7 @@ import { registerTools } from './tools.js';
 export const PACKAGE_NAME = '@wippyapp/mcp';
 // Keep in sync with package.json version. Drift would be a silent bug —
 // the test in __tests__/server.test.ts catches it by reading package.json.
-export const PACKAGE_VERSION = '0.1.0';
+export const PACKAGE_VERSION = '0.2.0';
 
 export interface WippyMcpServerConfig {
   apiUrl?: string;
